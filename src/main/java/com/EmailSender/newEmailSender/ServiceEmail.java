@@ -48,7 +48,7 @@ public class ServiceEmail
             String text = "Welcome to Feed the hunger Application\n" +
                     "Automated generated email, don't reply.\n" +
                     "Your Account is successfully created but not activated. Now you have to activate your account by clicking given link.\n" +
-                    "https://food-distribution-app.herokuapp.com/";
+                    "https://feed-the-hunger-backend.herokuapp.com/";
             MimeBodyPart textBodyPart = new MimeBodyPart();
             textBodyPart.setText(text);
             //Attachment body part.

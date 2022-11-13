@@ -12,7 +12,7 @@ public class GetTemplateWithURL
     public String getJSP(@PathVariable("email") String mail, Model theModel)
     {
         System.out.println(mail);
-        String url = "https://food-distribution-app.herokuapp.com/users/applicationStatus/" + mail;
+        String url = "https://feed-the-hunger-backend.herokuapp.com/users/applicationStatus/" + mail;
         theModel.addAttribute("mailURL", url);
         return "email-template";
     }
