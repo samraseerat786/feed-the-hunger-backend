@@ -37,7 +37,6 @@ public class EmailService {
 			RestTemplate template = new RestTemplate();
 			String url = "https://feed-the-hunger-backend.herokuapp.com/getTemplate/" + request.getTo();
 			String result = template.getForObject(url, String.class);
-			System.out.println(result);
 			helper.setTo(request.getTo());
 			helper.setText(result, true);
 			helper.setSubject(request.getSubject());
