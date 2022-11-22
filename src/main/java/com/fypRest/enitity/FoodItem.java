@@ -25,17 +25,18 @@ public class FoodItem
 
     @Column(name="type")
     private String type;
-    // private String image;
+     private String image;
 
     public FoodItem()
     {
     }
 
-    public FoodItem(String name, Date expiry_date, String type)
-    {
+    public FoodItem(int id, String name, Date expiry_date, String type, String image) {
+        this.id = id;
         this.name = name;
         this.expiry_date = expiry_date;
         this.type = type;
+        this.image = image;
     }
 
     public int getId()
@@ -78,14 +79,22 @@ public class FoodItem
         this.type = type;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
-    public String toString()
-    {
-        return "Food{" +
+    public String toString() {
+        return "FoodItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", expiry_date=" + expiry_date +
                 ", type='" + type + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.fypRest.Controller;
 
 import com.fypRest.DAO.DonationRepository;
+import com.fypRest.DTO.CustomDonation;
 import com.fypRest.enitity.Donation;
 import com.fypRest.service.DonationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,18 @@ public class DonationController
     {
         donationService.deleteById(donationId);
         return "Donation id - " + donationId + " is deleted.";
+    }
+
+    @GetMapping("/find-by-id")
+    public List<CustomDonation> getDonationsList(@RequestParam("id") Integer id,
+                                                 @RequestParam("user") String user)
+    {
+        try
+        {
+            return donationService.findDonationById(id, user);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }

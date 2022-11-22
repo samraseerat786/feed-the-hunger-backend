@@ -18,6 +18,12 @@ public class Donation
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
+    @Column(name="status")
+    private String status;
+
+    @Column(name="acceptance_time")
+    private String acceptanceTime;
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "donner_id")
     private Donner donner;
@@ -70,6 +76,22 @@ public class Donation
     public CharityHouse getCharityHouse()
     {
         return charityHouse;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAcceptanceTime() {
+        return acceptanceTime;
+    }
+
+    public void setAcceptanceTime(String acceptanceTime) {
+        this.acceptanceTime = acceptanceTime;
     }
 
     public void setCharityHouse(CharityHouse charityHouse)
