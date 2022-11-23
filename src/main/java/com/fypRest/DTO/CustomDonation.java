@@ -26,6 +26,13 @@ public class CustomDonation {
     private String acceptanceTime;
     private String donationType;
 
+    private String fromEmail;
+    private String fromFirstName;
+    private String fromLastName;
+    private String toName;
+    private String toEmail;
+
+
     public Integer getId() {
         return id;
     }
@@ -152,5 +159,45 @@ public class CustomDonation {
 
     public void setDonationType(String donationType) {
         this.donationType = donationType;
+    }
+
+    public String getFromEmail() {
+        return fromEmail;
+    }
+
+    public void setFromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
+    }
+
+    public String getFromFirstName() {
+        return fromFirstName;
+    }
+
+    public void setFromFirstName(String fromFirstName) {
+        this.fromFirstName = fromFirstName;
+    }
+
+    public String getFromLastName() {
+        return fromLastName;
+    }
+
+    public void setFromLastName(String fromLastName) {
+        this.fromLastName = fromLastName;
+    }
+
+    public String getToName() {
+        return toName;
+    }
+
+    public void setToName(String toName) {
+        this.toName = toName;
+    }
+
+    public String getToEmail() {
+        return toEmail;
+    }
+
+    public void setToEmail(String toEmail) {
+        this.toEmail = toEmail;
     }
 }

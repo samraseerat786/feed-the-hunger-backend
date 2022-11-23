@@ -23,22 +23,32 @@ public class CustomDonationRepository {
         String filter = user.equals("donor") ? "donner_id" : "charity_house_id";
         try {
             Query nativeQuery = entityManager.createNativeQuery(
-                    "SELECT fdd.id, fdd.quantity_value, fdd.quantity_unit, " +
-                        " fi.name, fi.expiry_date, fi.type, fi.image, " +
-                        " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time " +
-                        " FROM charityDB.food_donation_details fdd " +
-                        " left outer join food_item fi on fdd.food_item_id = fi.id " +
-                        " left outer join donation d on fdd.donation_id = d.id " +
-                        " where " + filter + " = ?1");
+                    "SELECT d.id, fdd.quantity_value, fdd.quantity_unit, " +
+                            " fi.name, fi.expiry_date, fi.type, fi.image, " +
+                            " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
+                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, " +
+                            " ch.name as to_name, ch.email as to_email " +
+                            " FROM charityDB.food_donation_details fdd " +
+                            " left outer join food_item fi on fdd.food_item_id = fi.id " +
+                            " left outer join donation d on fdd.donation_id = d.id " +
+                            " left outer join donner dd on d.donner_id = dd.id " +
+                            " left outer join user u on dd._user_id = u.id " +
+                            " left outer join charity_house ch on d.charity_house_id = ch.id" +
+                            " where " + filter + " = ?1");
             nativeQuery.setParameter(1, id);
             List<CustomDonation> donations = mapToCustomDonationList((List<Object[]>) nativeQuery.getResultList());
 
             nativeQuery = entityManager.createNativeQuery(
-                    "SELECT fd.id, fd.amount, fd.currency, fd.donner_card, " +
-                       " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time " +
-                       " FROM charityDB.fund_donation fd " +
-                       " left outer join donation d on fd._donation_id = d.id " +
-                       " where " + filter + " = ?1");
+                    "SELECT d.id, fd.amount, fd.currency, fd.donner_card, " +
+                            " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
+                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, " +
+                            " ch.name as to_name, ch.email as to_email " +
+                            " FROM charityDB.fund_donation fd " +
+                            " left outer join donation d on fd._donation_id = d.id " +
+                            " left outer join donner dd on d.donner_id = dd.id " +
+                            " left outer join user u on dd._user_id = u.id " +
+                            " left outer join charity_house ch on d.charity_house_id = ch.id " +
+                            " where " + filter + " = ?1");
             nativeQuery.setParameter(1, id);
 
             List<CustomDonation> funDDonations = mapToCustomFundDonationList((List<Object[]>) nativeQuery.getResultList());
@@ -65,6 +75,11 @@ public class CustomDonationRepository {
             customDonation.setCharityHouseId((Integer) row[6]);
             customDonation.setStatus((String) row[7]);
             customDonation.setAcceptanceTime((String) row[8]);
+            customDonation.setFromEmail((String) row[9]);
+            customDonation.setFromFirstName((String) row[10]);
+            customDonation.setFromLastName((String) row[11]);
+            customDonation.setToName((String) row[12]);
+            customDonation.setToEmail((String) row[13]);
             customDonations.add(customDonation);
         }
         return customDonations;
@@ -88,6 +103,11 @@ public class CustomDonationRepository {
             customDonation.setCharityHouseId((Integer) row[9]);
             customDonation.setStatus((String) row[10]);
             customDonation.setAcceptanceTime((String) row[11]);
+            customDonation.setFromEmail((String) row[12]);
+            customDonation.setFromFirstName((String) row[13]);
+            customDonation.setFromLastName((String) row[14]);
+            customDonation.setToName((String) row[15]);
+            customDonation.setToEmail((String) row[16]);
             customDonations.add(customDonation);
         }
         return customDonations;
