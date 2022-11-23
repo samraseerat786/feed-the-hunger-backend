@@ -47,4 +47,8 @@ public class DonationService
     {
         return customDonationRepository.findAllDonationById(id, userType);
     }
+    public boolean updateDonation(int id, String status, String time)
+    {
+        return customDonationRepository.updateDonationByID(id, status, time);
+    }
 }

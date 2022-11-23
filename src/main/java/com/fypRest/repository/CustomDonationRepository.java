@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,22 @@ public class CustomDonationRepository {
     public CustomDonationRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    @Transactional
+    public boolean updateDonationByID(int id, String status, String time) {
+        try {
+            Query nativeQuery = entityManager.createNativeQuery(
+                    "update donation set status = ?1, acceptance_time = ?2 where id= ?3");
+            nativeQuery.setParameter(1, status);
+            nativeQuery.setParameter(2, time);
+            nativeQuery.setParameter(3, id);
+            nativeQuery.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
     public List<CustomDonation> findAllDonationById(int id, String user) {
 

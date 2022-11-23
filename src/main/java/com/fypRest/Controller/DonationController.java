@@ -81,4 +81,17 @@ public class DonationController
             return new ArrayList<>();
         }
     }
+
+    @GetMapping("/update-donation-by-id")
+    public boolean getDonationsList(@RequestParam("id") Integer id,
+                                     @RequestParam("status") String status,
+                                     @RequestParam("time") String time) {
+        try
+        {
+            return donationService.updateDonation(id, status, time);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
