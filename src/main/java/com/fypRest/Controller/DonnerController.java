@@ -8,16 +8,16 @@ import com.fypRest.DAO.DonnerRepository;
 import com.fypRest.DAO.UserRepository;
 import com.fypRest.enitity.Donner;
 import com.fypRest.enitity.User;
+import com.fypRest.repository.CustomDonationRepository;
 import com.fypRest.service.DonnerService;
 import com.fypRest.service.StringService;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*")
@@ -37,11 +37,34 @@ public class DonnerController
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private CustomDonationRepository customDonationRepository;
 
     @GetMapping("/list")
-    public Page<Donner> getDonners(@RequestParam Optional<Integer> page)
+    public List<JSONObject> getDonners()
     {
-        return donnerRepository.findAll(PageRequest.of(page.orElse(0), 5));
+        List<Donner> donors = donnerRepository.findAll();
+        List<JSONObject> donorJsonObjects = new ArrayList<>();
+        for (Donner d: donors) {
+            List<Integer> stars = customDonationRepository.getStarRatingByDonorId(d.getId());
+            double rating = this.calculateAverage(stars);
+            JSONObject response = new JSONObject();
+            response.put("donor", d);
+            response.put("rating", rating);
+            donorJsonObjects.add(response);
+        }
+        return donorJsonObjects;
+    }
+
+    private double calculateAverage(List <Integer> stars) {
+        Integer sum = 0;
+        if(!stars.isEmpty()) {
+            for (Integer mark : stars) {
+                sum += mark;
+            }
+            return sum.doubleValue() / stars.size();
+        }
+        return sum;
     }
 
     @RequestMapping()
@@ -54,7 +77,7 @@ public class DonnerController
         System.out.println(theDonner);
         User u = theDonner.getUser();
         System.out.println(u);
-        MailRequest request = new MailRequest("Charity App", u.getEmail(), "charity.application501@gmail.com", "Confirmation Email");
+        MailRequest request = new MailRequest("Feed the hunger", u.getEmail(), "feed.hunger786@gmail.com", "Confirmation Email");
         Map<String, Object> model = new HashMap<>();
         model.put("Name", request.getName());
         model.put("location", "Islamabad, Pakistan");

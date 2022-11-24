@@ -69,7 +69,7 @@ public class UserController
     public User newUser(@RequestBody User theUser)
     {
         userService.save(theUser);
-        MailRequest request = new MailRequest("Charity App", theUser.getEmail(), "charity.application501@gmail.com", "Confirmation Email");
+        MailRequest request = new MailRequest("Feed the hunger App", theUser.getEmail(), "feed.hunger786@gmail.com", "Confirmation Email");
         Map<String, Object> model = new HashMap<>();
         model.put("Name", request.getName());
         model.put("location", "Islamabad, Pakistan");

@@ -46,7 +46,7 @@ public class CharityHouseController
         User u = theCharityHouse.getUser();
         System.out.println(u);
         charityHouseService.save(theCharityHouse);
-        MailRequest request = new MailRequest("Charity App", u.getEmail(), "charity.application501@gmail.com", "Confirmation Email");
+        MailRequest request = new MailRequest("Feed the hunger", u.getEmail(), "feed.hunger786@gmail.com", "Confirmation Email");
         Map<String, Object> model = new HashMap<>();
         model.put("Name", request.getName());
         model.put("location", "Islamabad, Pakistan");

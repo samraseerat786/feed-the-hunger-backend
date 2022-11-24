@@ -19,6 +19,19 @@ public class CustomDonationRepository {
         this.entityManager = entityManager;
     }
 
+    public List<Integer> getStarRatingByDonorId(int id) {
+        try {
+            Query nativeQuery = entityManager.createNativeQuery(
+                    "select stars from review where _donner_id = ?1");
+            nativeQuery.setParameter(1, id);
+            List<Integer> stars = new ArrayList<>();
+            stars = (List<Integer>) nativeQuery.getResultList();
+            return stars;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
     @Transactional
     public boolean updateDonationByID(int id, String status, String time) {
         try {
