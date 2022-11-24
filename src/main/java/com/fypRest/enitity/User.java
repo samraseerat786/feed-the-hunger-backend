@@ -36,8 +36,8 @@ public class User
     @Column(name="role")
     private String role;
 
-    @Column(name = "image", length = 1000)
-    private Byte[] image;
+    @Column(name = "image")
+    private String image;
 
     public User()
     {
@@ -133,12 +133,12 @@ public class User
         this.applicationStatus = applicationStatus;
     }
 
-    public Byte[] getImage()
+    public String getImage()
     {
         return image;
     }
 
-    public void setImage(Byte[] image)
+    public void setImage(String image)
     {
         this.image = image;
     }
