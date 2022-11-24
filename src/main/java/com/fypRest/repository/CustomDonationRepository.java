@@ -43,14 +43,15 @@ public class CustomDonationRepository {
                     "SELECT d.id, fdd.quantity_value, fdd.quantity_unit, " +
                             " fi.name, fi.expiry_date, fi.type, fi.image, " +
                             " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
-                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, " +
-                            " ch.name as to_name, ch.email as to_email " +
+                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name, " +
+                            " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
                             " FROM charityDB.food_donation_details fdd " +
                             " left outer join food_item fi on fdd.food_item_id = fi.id " +
                             " left outer join donation d on fdd.donation_id = d.id " +
                             " left outer join donner dd on d.donner_id = dd.id " +
                             " left outer join user u on dd._user_id = u.id " +
                             " left outer join charity_house ch on d.charity_house_id = ch.id" +
+                            " left outer join user tu on ch.user_id = tu.id " +
                             " where " + filter + " = ?1");
             nativeQuery.setParameter(1, id);
             List<CustomDonation> donations = mapToCustomDonationList((List<Object[]>) nativeQuery.getResultList());
@@ -58,13 +59,14 @@ public class CustomDonationRepository {
             nativeQuery = entityManager.createNativeQuery(
                     "SELECT d.id, fd.amount, fd.currency, fd.donner_card, " +
                             " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
-                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, " +
-                            " ch.name as to_name, ch.email as to_email " +
+                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name," +
+                            " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
                             " FROM charityDB.fund_donation fd " +
                             " left outer join donation d on fd._donation_id = d.id " +
                             " left outer join donner dd on d.donner_id = dd.id " +
                             " left outer join user u on dd._user_id = u.id " +
                             " left outer join charity_house ch on d.charity_house_id = ch.id " +
+                            " left outer join user tu on ch.user_id = tu.id " +
                             " where " + filter + " = ?1");
             nativeQuery.setParameter(1, id);
 
@@ -95,8 +97,12 @@ public class CustomDonationRepository {
             customDonation.setFromEmail((String) row[9]);
             customDonation.setFromFirstName((String) row[10]);
             customDonation.setFromLastName((String) row[11]);
-            customDonation.setToName((String) row[12]);
-            customDonation.setToEmail((String) row[13]);
+            customDonation.setFromUserName((String) row[12]);
+            customDonation.setToName((String) row[13]);
+            customDonation.setToEmail((String) row[14]);
+            customDonation.setToUserName((String) row[15]);
+            customDonation.setToFirstName((String) row[16]);
+            customDonation.setToLastName((String) row[17]);
             customDonations.add(customDonation);
         }
         return customDonations;
@@ -123,8 +129,12 @@ public class CustomDonationRepository {
             customDonation.setFromEmail((String) row[12]);
             customDonation.setFromFirstName((String) row[13]);
             customDonation.setFromLastName((String) row[14]);
-            customDonation.setToName((String) row[15]);
-            customDonation.setToEmail((String) row[16]);
+            customDonation.setFromUserName((String) row[15]);
+            customDonation.setToName((String) row[16]);
+            customDonation.setToEmail((String) row[17]);
+            customDonation.setToUserName((String) row[18]);
+            customDonation.setToFirstName((String) row[19]);
+            customDonation.setToLastName((String) row[20]);
             customDonations.add(customDonation);
         }
         return customDonations;

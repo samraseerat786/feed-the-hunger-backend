@@ -29,8 +29,12 @@ public class CustomDonation {
     private String fromEmail;
     private String fromFirstName;
     private String fromLastName;
+    private String toUserName;
+    private String fromUserName;
     private String toName;
     private String toEmail;
+    private String toFirstName;
+    private String toLastName;
 
 
     public Integer getId() {
@@ -185,6 +189,22 @@ public class CustomDonation {
         this.fromLastName = fromLastName;
     }
 
+    public String getToUserName() {
+        return toUserName;
+    }
+
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
+    }
+
+    public String getFromUserName() {
+        return fromUserName;
+    }
+
+    public void setFromUserName(String fromUserName) {
+        this.fromUserName = fromUserName;
+    }
+
     public String getToName() {
         return toName;
     }
@@ -199,5 +219,21 @@ public class CustomDonation {
 
     public void setToEmail(String toEmail) {
         this.toEmail = toEmail;
+    }
+
+    public String getToFirstName() {
+        return toFirstName;
+    }
+
+    public void setToFirstName(String toFirstName) {
+        this.toFirstName = toFirstName;
+    }
+
+    public String getToLastName() {
+        return toLastName;
+    }
+
+    public void setToLastName(String toLastName) {
+        this.toLastName = toLastName;
     }
 }
