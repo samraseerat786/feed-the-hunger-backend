@@ -58,7 +58,7 @@ public class CustomDonationRepository {
                             " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
                             " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name, " +
                             " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
-                            " FROM charityDB.food_donation_details fdd " +
+                            " FROM food_donation_details fdd " +
                             " left outer join food_item fi on fdd.food_item_id = fi.id " +
                             " left outer join donation d on fdd.donation_id = d.id " +
                             " left outer join donner dd on d.donner_id = dd.id " +
@@ -74,7 +74,7 @@ public class CustomDonationRepository {
                             " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
                             " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name," +
                             " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
-                            " FROM charityDB.fund_donation fd " +
+                            " FROM fund_donation fd " +
                             " left outer join donation d on fd._donation_id = d.id " +
                             " left outer join donner dd on d.donner_id = dd.id " +
                             " left outer join user u on dd._user_id = u.id " +
