@@ -50,7 +50,7 @@ public class CustomDonationRepository {
 
     public List<CustomDonation> findAllDonationById(int id, String user) {
 
-        String filter = user.equals("donor") ? "donner_id" : "charity_house_id";
+        String filter = user.equals("donor") ? (" where donner_id = " + id ) : " where status = 'new'";
         try {
             Query nativeQuery = entityManager.createNativeQuery(
                     "SELECT d.id, fdd.quantity_value, fdd.quantity_unit, " +
@@ -64,27 +64,25 @@ public class CustomDonationRepository {
                             " left outer join donner dd on d.donner_id = dd.id " +
                             " left outer join user u on dd._user_id = u.id " +
                             " left outer join charity_house ch on d.charity_house_id = ch.id" +
-                            " left outer join user tu on ch.user_id = tu.id " +
-                            " where " + filter + " = ?1");
-            nativeQuery.setParameter(1, id);
+                            " left outer join user tu on ch.user_id = tu.id " + filter);
             List<CustomDonation> donations = mapToCustomDonationList((List<Object[]>) nativeQuery.getResultList());
 
-            nativeQuery = entityManager.createNativeQuery(
-                    "SELECT d.id, fd.amount, fd.currency, fd.donner_card, " +
-                            " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
-                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name," +
-                            " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
-                            " FROM fund_donation fd " +
-                            " left outer join donation d on fd._donation_id = d.id " +
-                            " left outer join donner dd on d.donner_id = dd.id " +
-                            " left outer join user u on dd._user_id = u.id " +
-                            " left outer join charity_house ch on d.charity_house_id = ch.id " +
-                            " left outer join user tu on ch.user_id = tu.id " +
-                            " where " + filter + " = ?1");
-            nativeQuery.setParameter(1, id);
-
-            List<CustomDonation> funDDonations = mapToCustomFundDonationList((List<Object[]>) nativeQuery.getResultList());
-            donations.addAll(funDDonations);
+//            nativeQuery = entityManager.createNativeQuery(
+//                    "SELECT d.id, fd.amount, fd.currency, fd.donner_card, " +
+//                            " d.date, d.donner_id, d.charity_house_id, d.status, d.acceptance_time, " +
+//                            " u.email as from_email, u.first_name as from_first_name, u.last_name as from_last_name, u.user_name as from_user_name," +
+//                            " ch.name as to_name, ch.email as to_email, tu.user_name as to_user_name, tu.first_name as to_first_name, tu.last_name as to_lat_name " +
+//                            " FROM fund_donation fd " +
+//                            " left outer join donation d on fd._donation_id = d.id " +
+//                            " left outer join donner dd on d.donner_id = dd.id " +
+//                            " left outer join user u on dd._user_id = u.id " +
+//                            " left outer join charity_house ch on d.charity_house_id = ch.id " +
+//                            " left outer join user tu on ch.user_id = tu.id " +
+//                            " where " + filter + " = ?1");
+//            nativeQuery.setParameter(1, id);
+//
+//            List<CustomDonation> funDDonations = mapToCustomFundDonationList((List<Object[]>) nativeQuery.getResultList());
+//            donations.addAll(funDDonations);
 
             return donations;
         } catch (Exception e) {

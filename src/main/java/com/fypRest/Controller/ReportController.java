@@ -30,7 +30,7 @@ public class ReportController
     @GetMapping("/list")
     public Page<Report> getReports(@RequestParam Optional<Integer> page)
     {
-        return reportRepository.findAll(PageRequest.of(page.orElse(0) , 5 ));
+        return reportRepository.findAll(PageRequest.of(page.orElse(0) , 50 ));
     }
 
     @GetMapping("/findByDonner/{id}")
