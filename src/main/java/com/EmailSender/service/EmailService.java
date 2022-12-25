@@ -35,7 +35,8 @@ public class EmailService {
 			// Template t = config.getTemplate("template.html");
 			// String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 			RestTemplate template = new RestTemplate();
-			String url = "https://feed-the-hunger-backend.herokuapp.com/getTemplate/" + request.getTo();
+			// String url = "https://feed-the-hunger-backend.herokuapp.com/getTemplate/" + request.getTo();
+			String url = "http://localhost:8095/getTemplate/" + request.getTo();
 			String result = template.getForObject(url, String.class);
 			helper.setTo(request.getTo());
 			helper.setText(result, true);
