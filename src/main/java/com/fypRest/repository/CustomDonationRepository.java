@@ -33,13 +33,14 @@ public class CustomDonationRepository {
     }
 
     @Transactional
-    public boolean updateDonationByID(int id, String status, String time) {
+    public boolean updateDonationByID(int id, int ngoId, String status, String time) {
         try {
             Query nativeQuery = entityManager.createNativeQuery(
-                    "update donation set status = ?1, acceptance_time = ?2 where id= ?3");
+                    "update donation set status = ?1, acceptance_time = ?2, charity_house_id = ?3 where id= ?4");
             nativeQuery.setParameter(1, status);
             nativeQuery.setParameter(2, time);
-            nativeQuery.setParameter(3, id);
+            nativeQuery.setParameter(3, ngoId);
+            nativeQuery.setParameter(4, id);
             nativeQuery.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class CustomDonationRepository {
 
     public List<CustomDonation> findAllDonationById(int id, String user) {
 
-        String filter = user.equals("donor") ? (" where donner_id = " + id ) : " where status = 'new'";
+        String filter = user.equals("donor") ? (" where donner_id = " + id ) : ""; // " where status = 'new'";
         try {
             Query nativeQuery = entityManager.createNativeQuery(
                     "SELECT d.id, fdd.quantity_value, fdd.quantity_unit, " +

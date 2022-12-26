@@ -84,11 +84,12 @@ public class DonationController
 
     @GetMapping("/update-donation-by-id")
     public boolean getDonationsList(@RequestParam("id") Integer id,
+                                    @RequestParam("ngoId") Integer ngoId,
                                      @RequestParam("status") String status,
                                      @RequestParam("time") String time) {
         try
         {
-            return donationService.updateDonation(id, status, time);
+            return donationService.updateDonation(id, ngoId, status, time);
         }catch (Exception e){
             e.printStackTrace();
             return false;
