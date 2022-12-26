@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class Upload {
             String label = (String) info.get("en");
             tags.add(new Tag(label));
             i++;
-            if(i>=7){
+            if(i>=10){
                 break;
             }
         }
