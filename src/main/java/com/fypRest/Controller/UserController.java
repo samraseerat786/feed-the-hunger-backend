@@ -51,7 +51,7 @@ public class UserController
     @GetMapping("/list")
     public Page<User> getUsers(@RequestParam Optional<Integer> page)
     {
-        return userRepository.findAll(PageRequest.of(page.orElse(0), 5));
+        return userRepository.findAll(PageRequest.of(page.orElse(0), 50));
     }
 
     @GetMapping("/getUser/{userId}")

@@ -35,7 +35,7 @@ public class CharityHouseController
     @GetMapping("/list")
     public Page<CharityHouse> getCharityHouses(@RequestParam Optional<Integer> page)
     {
-        return charityHouseRepository.findAll(PageRequest.of(page.orElse(0), 5));
+        return charityHouseRepository.findAll(PageRequest.of(page.orElse(0), 50));
     }
 
     @PostMapping("/newCharityHouse")
