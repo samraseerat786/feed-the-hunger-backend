@@ -15,7 +15,7 @@ public class Donation
     private int id;
 
     @Column(name="date")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     @Column(name="status")
