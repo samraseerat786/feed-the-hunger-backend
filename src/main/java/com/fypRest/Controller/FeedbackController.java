@@ -1,6 +1,7 @@
 package com.fypRest.Controller;
 
 import com.fypRest.DAO.FeedbackRepository;
+import com.fypRest.DTO.Response;
 import com.fypRest.enitity.Feedback;
 import com.fypRest.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,10 @@ public class FeedbackController
         return theFeedback;
     }
     @DeleteMapping("/deleteFeedback/{feedbackId}")
-    public String deleteFeedback(@PathVariable int feedbackId)
+    public Response deleteFeedback(@PathVariable int feedbackId)
     {
         feedbackService.deleteById(feedbackId);
-        return "Feedback id - " + feedbackId + " is deleted.";
+        return new Response("Feedback is deleted.", "200");
     }
 
     @GetMapping("/findByDonner/{id}")

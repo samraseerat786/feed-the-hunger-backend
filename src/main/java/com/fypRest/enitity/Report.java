@@ -1,6 +1,9 @@
 package com.fypRest.enitity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "report")
@@ -27,6 +30,13 @@ public class Report
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "charity_houses_id")
     private CharityHouse charityHouse;
+
+    @Column(name="date")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date date;
+
+    @Column(name="status")
+    private String status;
 
     public Report(String type, String email, String message)
     {
@@ -96,6 +106,22 @@ public class Report
     public void setCharityHouse(CharityHouse charityHouse)
     {
         this.charityHouse = charityHouse;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

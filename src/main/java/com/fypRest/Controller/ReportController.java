@@ -1,6 +1,7 @@
 package com.fypRest.Controller;
 
 import com.fypRest.DAO.ReportRepository;
+import com.fypRest.DTO.Response;
 import com.fypRest.enitity.Report;
 import com.fypRest.service.ReportServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,10 @@ public class ReportController
         System.out.println(theReport);
         return theReport;
     }
-    @DeleteMapping("/delete/{id}")
-    public String deleteReport(@PathVariable int ReportId)
+    @PostMapping("/delete")
+    public Response deleteReport(@RequestBody Integer reportId)
     {
-        // reportService.deleteById(reportId);
-        return "Report id - " + ReportId + " is deleted.";
+        reportRepository.deleteById(reportId);
+        return new Response("Report is deleted.", "200");
     }
 }

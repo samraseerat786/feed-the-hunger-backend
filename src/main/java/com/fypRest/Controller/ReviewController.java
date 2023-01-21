@@ -1,6 +1,7 @@
 package com.fypRest.Controller;
 
 import com.fypRest.DAO.ReviewRepository;
+import com.fypRest.DTO.Response;
 import com.fypRest.enitity.Review;
 import com.fypRest.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,10 @@ public class ReviewController
         return theReview;
     }
     @DeleteMapping("/deleteReview/{reviewId}")
-    public String deleteReview(@PathVariable int reviewId)
+    public Response deleteReview(@PathVariable int reviewId)
     {
         reviewService.deleteById(reviewId);
-        return "Review id - " + reviewId + " is deleted.";
+        return new Response("Review is deleted.", "200");
     }
 
     @GetMapping("/findByDonner/{id}")
